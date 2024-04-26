@@ -1,6 +1,7 @@
 package br.com.victorbarros.curso_dev.modules.courses.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +19,13 @@ public class CourseController {
   private CreateCourseUseCase createCourseUseCase;
 
   @PostMapping("/create")
-  public CourseEntity create(@Valid @RequestBody CourseEntity courseEntity) {
-    var result = this.createCourseUseCase.execute(courseEntity);
+  public ResponseEntity<Object> create(@Valid @RequestBody CourseEntity courseEntity) {
+    try {
+      var result = this.createCourseUseCase.execute(courseEntity);
 
-    return result;
+      return ResponseEntity.ok().body(result);
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 }
