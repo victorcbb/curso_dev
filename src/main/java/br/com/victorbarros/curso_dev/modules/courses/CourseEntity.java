@@ -5,10 +5,11 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.beans.factory.annotation.Value;
 
 import br.com.victorbarros.curso_dev.types.Active;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,7 +18,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-@Entity(name = "Couse")
+@Entity(name = "Course")
 public class CourseEntity {
 
   @Id
@@ -30,9 +31,8 @@ public class CourseEntity {
   @NotBlank(message = "Preencha a categoria do curso.")
   private String category;
 
-  @Enumerated
-  @Value("YES")
-  private Active active;
+  @Enumerated(EnumType.STRING)
+  private Active active = Active.NO;
 
   @CreationTimestamp
   private LocalDateTime created_at;
