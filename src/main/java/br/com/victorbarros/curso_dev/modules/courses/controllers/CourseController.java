@@ -13,11 +13,13 @@ import br.com.victorbarros.curso_dev.modules.courses.CourseEntity;
 import br.com.victorbarros.curso_dev.modules.courses.useCases.CreateCourseUseCase;
 import br.com.victorbarros.curso_dev.modules.courses.useCases.DeleteCourseUseCase;
 import br.com.victorbarros.curso_dev.modules.courses.useCases.ListCourseUseCase;
+import br.com.victorbarros.curso_dev.modules.courses.useCases.ToggleActiveCourseUseCase;
 import br.com.victorbarros.curso_dev.modules.courses.useCases.UpdateCourseUseCase;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +39,9 @@ public class CourseController {
 
   @Autowired
   private DeleteCourseUseCase deleteCourseUseCase;
+
+  @Autowired
+  private ToggleActiveCourseUseCase toggleActiveCourseUseCase;
 
   @PostMapping("/")
   public ResponseEntity<Object> create(@Valid @RequestBody CourseEntity courseEntity) {
@@ -81,4 +86,16 @@ public class CourseController {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
   }
+
+  @PatchMapping("/{id}/active")
+  public ResponseEntity<Object> patch(@PathVariable UUID id) {
+    try {
+      var result = this.toggleActiveCourseUseCase.execute(id);
+
+      return ResponseEntity.ok().body(result);
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
+
 }

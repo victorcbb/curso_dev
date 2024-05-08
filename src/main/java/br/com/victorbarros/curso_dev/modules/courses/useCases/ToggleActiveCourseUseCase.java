@@ -11,7 +11,7 @@ import br.com.victorbarros.curso_dev.modules.courses.CourseRepository;
 import br.com.victorbarros.curso_dev.types.Active;
 
 @Service
-public class ToggleActiveCourse {
+public class ToggleActiveCourseUseCase {
 
   @Autowired
   private CourseRepository courseRepository;
