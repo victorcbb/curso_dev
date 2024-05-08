@@ -14,6 +14,8 @@ import br.com.victorbarros.curso_dev.modules.courses.useCases.CreateCourseUseCas
 import br.com.victorbarros.curso_dev.modules.courses.useCases.ListCourseUseCase;
 import br.com.victorbarros.curso_dev.modules.courses.useCases.UpdateCourseUseCase;
 import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
