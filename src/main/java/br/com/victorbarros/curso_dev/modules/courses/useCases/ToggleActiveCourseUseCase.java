@@ -24,13 +24,14 @@ public class ToggleActiveCourseUseCase {
 
     if (course.getActive().equals(Active.NO)) {
       course.setActive(Active.YES);
-    }
-    if (course.getActive().equals(Active.YES)) {
+
+      this.courseRepository.save(course);
+      return course;
+    } else {
       course.setActive(Active.NO);
+
+      this.courseRepository.save(course);
+      return course;
     }
-
-    this.courseRepository.save(course);
-
-    return course;
   }
 }
