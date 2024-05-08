@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/cursos")
 public class CourseController {
 
   @Autowired
@@ -32,7 +32,7 @@ public class CourseController {
   @Autowired
   private UpdateCourseUseCase updateCourseUseCase;
 
-  @PostMapping("/create")
+  @PostMapping("/")
   public ResponseEntity<Object> create(@Valid @RequestBody CourseEntity courseEntity) {
     try {
       var result = this.createCourseUseCase.execute(courseEntity);
@@ -43,7 +43,7 @@ public class CourseController {
     }
   }
 
-  @GetMapping("/list")
+  @GetMapping("/")
   public ResponseEntity<Object> list(@RequestParam String name, String category) {
     try {
       var result = this.listCourseUseCase.execute(name, category);
