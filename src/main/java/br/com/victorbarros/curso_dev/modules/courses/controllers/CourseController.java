@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.victorbarros.curso_dev.modules.courses.CourseEntity;
 import br.com.victorbarros.curso_dev.modules.courses.useCases.CreateCourseUseCase;
+import br.com.victorbarros.curso_dev.modules.courses.useCases.DeleteCourseUseCase;
 import br.com.victorbarros.curso_dev.modules.courses.useCases.ListCourseUseCase;
 import br.com.victorbarros.curso_dev.modules.courses.useCases.UpdateCourseUseCase;
 import jakarta.validation.Valid;
@@ -33,6 +34,9 @@ public class CourseController {
 
   @Autowired
   private UpdateCourseUseCase updateCourseUseCase;
+
+  @Autowired
+  private DeleteCourseUseCase deleteCourseUseCase;
 
   @PostMapping("/")
   public ResponseEntity<Object> create(@Valid @RequestBody CourseEntity courseEntity) {
@@ -62,6 +66,17 @@ public class CourseController {
       var result = this.updateCourseUseCase.execute(id, courseEntity);
 
       return ResponseEntity.ok().body(result);
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Object> delete(@PathVariable UUID id) {
+    try {
+      this.deleteCourseUseCase.execute(id);
+
+      return ResponseEntity.ok().body("Curso removido com sucesso.");
     } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());
     }
